@@ -1,4 +1,4 @@
-name:  OpenWrt-基础版
+name:  Lienol
 
 on:
   repository_dispatch:
