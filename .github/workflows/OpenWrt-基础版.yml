@@ -1,9 +1,13 @@
 name:  OpenWrt-基础版
 
-on: 
+on:
+  repository_dispatch:
   workflow_dispatch:
-  schedule:
-    - cron: 01 00 * * *
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
