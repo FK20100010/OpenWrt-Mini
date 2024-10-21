@@ -19,7 +19,7 @@
 #echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 
 # 6-添加 kwrt-packages插件
-echo "src-git kwrt-packages https://github.com/kiddin9/kwrt-packages.git;main" >> "feeds.conf.default"
+echo "src-git kwrt_packages https://github.com/kiddin9/kwrt-packages.git;main" >> "feeds.conf.default"
 
 # TTYD 免登录
 sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
