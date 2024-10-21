@@ -30,3 +30,4 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 ./scripts/feeds install -a -p kwrt-packages -f
 rm -rf feeds/packages/net/chinadns-ng
 cp -rf feeds/kwrt-packages/chinadns-ng/ feeds/packages/net/
+curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
