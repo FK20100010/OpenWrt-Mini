@@ -22,12 +22,9 @@ sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-defaul
 #sed -i '/DTS_DIR:=$(LINUX_DIR)/a\BUILD_DATE_PREFIX := $(shell date +'%F')' ./include/image.mk
 
 # 7-修正硬件信息
-sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}${hydrid}/g' feeds/kwrt_packages/autocore/files/autocore
+#sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}${hydrid}/g' feeds/kwrt_packages/autocore/files/autocore
 
 # 8-增固件连接数
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
 
-./scripts/feeds install -a -p kwrt_packages -f
-rm -rf feeds/packages/net/chinadns-ng
-cp -rf feeds/kwrt_packages/chinadns-ng/ feeds/packages/net/
 curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
