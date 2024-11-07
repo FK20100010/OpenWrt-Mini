@@ -1,5 +1,5 @@
 name: Build WRT
-run-name: ${{ inputs.model }}
+run-name: ${{ inputs.model }}_${{ env.OPNAME }}
 
 on:
   workflow_dispatch:
@@ -95,16 +95,15 @@ jobs:
 
     - name: Initialization Values
       run: |
-        export BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
+        export BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d")
         echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
 
     - name: Build Firmware
-      run: |
-        echo "opname1=imm" >> $GITHUB_ENV
-        echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}'
+      run: |     
+        echo "OPNAME=$(echo ${{ inputs.build_mod }}) | awk -F'/' '{print $2}')" >> $GITHUB_ENV
         echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > opname
         cat opname
-        git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git ${{ env.opname }}
+        git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git ${{ env.OPNAME }}
         sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  patches/99-additional-settings
         chmod 775 build.sh
         ./build.sh ${{ inputs.model }} ${{ inputs.build_mod }}
