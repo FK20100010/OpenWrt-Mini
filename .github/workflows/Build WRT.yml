@@ -1,5 +1,5 @@
 name: Build WRT
-run-name: ${{ inputs.model }}_${{ env.OPNAME }}
+run-name: ${{ inputs.model }}_${{ env.BUILD_DATE }}
 
 on:
   workflow_dispatch:
