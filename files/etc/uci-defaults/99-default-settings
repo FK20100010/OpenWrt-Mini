@@ -35,6 +35,6 @@ sed -i 's~root::0:0:99999:7:::~root:$5$wWuQ48EcwP8fJ2Xq$GGvJHda1R2bYVNWbsG4lGS/Y
 sed -i 's~root:::0:99999:7:::~root:$5$wWuQ48EcwP8fJ2Xq$GGvJHda1R2bYVNWbsG4lGS/Yn/kUxWDDLfYac9p9PI.:20019:0:99999:7:::~g' /etc/shadow
 
 sed -i '/check_signature/d' /etc/opkg.conf
-
+sed -i 's/boardinfo.model/boardinfo.system/g' /www/luci-static/resources/view/status/include/10_system.js
 
 exit 0
