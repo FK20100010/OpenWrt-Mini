@@ -111,5 +111,5 @@ jobs:
     - name: Upload Firmware
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.BUILD_DATE }}_${{ inputs.model }}_${{ inputs.build_mod }}
+        name: ${{ env.BUILD_DATE }}_${{ inputs.model }}_
         path: ./firmware/*.*
