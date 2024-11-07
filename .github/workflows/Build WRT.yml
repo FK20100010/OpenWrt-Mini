@@ -12,12 +12,8 @@ on:
       build_mod:
         required: true
         description: WRT Project
-        type: choice
-        default: immortalwrt
-        options:
-          - openwrt
-          - immortalwrt
-          - libwrt
+        default: VIKINGYFY/immortalwrt
+        
       build_branch:
         required: true
         description: WRT Branch
