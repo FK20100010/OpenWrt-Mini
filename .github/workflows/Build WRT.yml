@@ -1,5 +1,5 @@
 name: Build WRT
-run-name: ${{ inputs.model }}_$ddddd
+run-name: ${{ inputs.model }}_$(echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}')
 
 on:
   workflow_dispatch:
@@ -12,8 +12,7 @@ on:
       build_mod:
         required: true
         description: Openwrt源码
-        default: VIKINGYFY/immortalwrt
-        ddddd: $(echo $default | awk -F'/' '{print $2}')
+        default: VIKINGYFY/immortalwrt        
         
       build_branch:
         required: true
