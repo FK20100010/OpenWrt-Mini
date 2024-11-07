@@ -102,7 +102,7 @@ jobs:
     - name: Build Firmware
       run: |
 #	git clone --depth 1 -b ${{ inputs.build_branch }} --single-branch https://github.com/${{ inputs.build_mod }}.git op_${{ inputs.build_branch }}
-        sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  additional/99-additional-settings
+#        sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  additional/99-additional-settings
         chmod 775 *.sh
 	cd op_${{ inputs.build_branch }}
 	./additional.sh
