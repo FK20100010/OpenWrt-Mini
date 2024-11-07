@@ -1,5 +1,5 @@
 name: Build WRT
-run-name: ${{ inputs.model }}_${{ inputs.build_mod }}
+run-name: ${{ inputs.model }}_${{ inputs.build_mod }}_${{ inputs.build_branch }}
 
 on:
   workflow_dispatch:
