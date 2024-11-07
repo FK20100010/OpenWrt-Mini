@@ -1,5 +1,5 @@
 name: Build WRT
-run-name: ${{ inputs.model }}_$(echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}')
+run-name: ${{ inputs.model }}_${{ env.opname }}
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ on:
       build_mod:
         required: true
         description: Openwrt源码
-        default: VIKINGYFY/immortalwrt        
+        default: VIKINGYFY/immortalwrt
         
       build_branch:
         required: true
@@ -100,7 +100,8 @@ jobs:
 
     - name: Build Firmware
       run: |
-        git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git 
+        echo "opname=$(echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}')" >> $GITHUB_ENV
+        git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git ${{ env.opname }}
         sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  patches/99-additional-settings
         chmod 775 build.sh
         ./build.sh ${{ inputs.model }} ${{ inputs.build_mod }}
