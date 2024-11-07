@@ -7,7 +7,7 @@ BASE_PATH=$(cd $(dirname $0) && pwd)
 BUILD_DIR=$(cat BUILD_DIR)
 BUILD_MODEL=$(cat BUILD_MODEL)
 CONFIG_FILE=$BASE_PATH/additional/$BUILD_MODEL.config
-\cp -f $BASE_PATH/additional/$BUILD_MODEL.config $BASE_PATH/$BUILD_DIR/.config"
+\cp -f $BASE_PATH/additional/$BUILD_MODEL.config $BASE_PATH/$BUILD_DIR/.config
 make defconfig
 
 DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' $CONFIG_FILE | sed -r 's/.*DEVICE_(.*)=y/\1/')
