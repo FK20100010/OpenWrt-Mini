@@ -26,6 +26,7 @@ if [[ -d $TARGET_DIR ]]; then
 fi
 
 cd $BASE_PATH/$BUILD_DIR
+cd $(dirname $0) && pwd
 make defconfig
 make download -j$(nproc)
 make -j$(nproc) || make -j1 || make -j1 V=s
