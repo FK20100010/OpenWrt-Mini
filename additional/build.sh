@@ -12,7 +12,7 @@ CONFIG_FILE=$BASE_PATH/additional/$BUILD_MODEL.config
 DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' $CONFIG_FILE | sed -r 's/.*DEVICE_(.*)=y/\1/')
 if [[ "$DEVICE_NAME" != "jdcloud_ax1800-pro" ]]; then
     sed -i "s/FK20100010/$DEVICE_NAME/g" $BASE_PATH/additional/99-additional-settings
-    sed -i 's/'\''psk2'\''/'\''none'\''/g' $BASE_PATH/additional/99-additional-settings
+    sed -i '/.encryption=/d' $BASE_PATH/additional/99-additional-settings
     sed -i '/.key=/d' $BASE_PATH/additional/99-additional-settings
     sed -i '/_core/d' $BASE_PATH/additional/99-additional-settings
     sed -i '/\/etc\/shadow/d' $BASE_PATH/additional/99-additional-settings
