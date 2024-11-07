@@ -1,25 +1,37 @@
 name: Build WRT
-run-name: ${{ inputs.model }}_$dd
+run-name: ${{ inputs.model }}_${{ inputs.build_mod }}
 
 on:
   workflow_dispatch:
     inputs:
       model:
         required: true
-        description: 路由器型号
+        description: Device Model
         default: jdcloud_ax1800-pro
 
       build_mod:
         required: true
-        description: Openwrt源码
-        default: VIKINGYFY/immortalwrt
-        dd : $(echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}')
-
+        description: WRT Project
+        type: choice
+        default: immortalwrt
+        options:
+          - openwrt
+          - immortalwrt
+          - libwrt
       build_branch:
         required: true
-        description: Openwrt分支
+        description: WRT Branch
         default: main          
 
+#      runs-on:
+#        required: true
+#        description: Runs on...
+#        type: choice
+#        default: ubuntu-20.04
+#        options:
+#          - ubuntu-20.04
+#          - ubuntu-22.04
+#          - ubuntu-latest
       lan-ip:
         required: true
         description: Lan.ipaddr
@@ -101,15 +113,13 @@ jobs:
 
     - name: Build Firmware
       run: |
-	git clone --depth 1 -b ${{ inputs.build_branch }} --single-branch https://github.com/${{ inputs.build_mod }}.git op_${{ inputs.build_branch }}
-	sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  additional/99-additional-settings
-        chmod 775 *.sh
-	cd op_${{ inputs.build_branch }}
-	./additional.sh
-        ./build.sh
+        sed -i "s/REPO_BRANCH=main/REPO_BRANCH=${{ inputs.build_branch }}/g"  compilecfg/*.sh
+        sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  patches/99-additional-settings
+        chmod 775 build.sh
+        ./build.sh ${{ inputs.model }} ${{ inputs.build_mod }}
 
     - name: Upload Firmware
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.BUILD_DATE }}_${{ inputs.model }}_$dd
+        name: ${{ env.BUILD_DATE }}_${{ inputs.model }}_${{ inputs.build_mod }}
         path: ./firmware/*.*
