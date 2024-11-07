@@ -6,28 +6,19 @@ on:
     inputs:
       model:
         required: true
-        description: Device Model
+        description: 路由器型号
         default: jdcloud_ax1800-pro
 
       build_mod:
         required: true
-        description: WRT Project
+        description: Openwrt源码
         default: VIKINGYFY/immortalwrt
         
       build_branch:
         required: true
-        description: WRT Branch
+        description: Openwrt分支
         default: main          
 
-#      runs-on:
-#        required: true
-#        description: Runs on...
-#        type: choice
-#        default: ubuntu-20.04
-#        options:
-#          - ubuntu-20.04
-#          - ubuntu-22.04
-#          - ubuntu-latest
       lan-ip:
         required: true
         description: Lan.ipaddr
