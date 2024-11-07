@@ -100,7 +100,7 @@ jobs:
 
     - name: Build Firmware
       run: |
-        sed -i "s/REPO_BRANCH=main/REPO_BRANCH=${{ inputs.build_branch }}/g"  compilecfg/*.sh
+        git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}
         sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  patches/99-additional-settings
         chmod 775 build.sh
         ./build.sh ${{ inputs.model }} ${{ inputs.build_mod }}
