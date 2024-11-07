@@ -14,13 +14,12 @@ git clone -b js --single-branch https://github.com/papagaye744/luci-theme-design
 
 # 4-添加 clouddrive2 插件
 git clone https://github.com/kiddin9/openwrt-clouddrive2.git package/openwrt-clouddrive2
-echo "src-git mihomo https://github.com/morytyann/OpenWrt-mihomo.git;main" >> "feeds.conf.default"
 
 # 5-添加 PassWall 插件
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
 echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> "feeds.conf.default"
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
-
+echo "src-git mihomo https://github.com/morytyann/OpenWrt-mihomo.git;main" >> "feeds.conf.default"
 # 6-添加 kwrt-packages插件
 #echo "src-git kwrt_packages https://github.com/kiddin9/kwrt-packages.git;main" >> "feeds.conf.default"
 
