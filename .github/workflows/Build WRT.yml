@@ -97,20 +97,19 @@ jobs:
       run: |
         export BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d")
         echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
+        echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > OPNAME
+        echo "OPNAME=$(cat OPNAME)" >> $GITHUB_ENV
 
     - name: Build Firmware
       run: |
-        echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > OPNAME
-        echo "OPNAME=$(cat OPNAME)" >> $GITHUB_ENV
-        
-        cat opname
+        cat OPNAME
         git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git ${{ env.OPNAME }}
-        sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  patches/99-additional-settings
+        sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  additional/99-additional-settings
         chmod 775 build.sh
-        ./build.sh ${{ inputs.model }} ${{ inputs.build_mod }}
+        ./build.sh
 
     - name: Upload Firmware
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.BUILD_DATE }}_${{ inputs.model }}_${{ inputs.build_mod }}
+        name: ${{ env.BUILD_DATE }}_${{ inputs.model }}_${{ env.OPNAME }}
         path: ./firmware/*.*
