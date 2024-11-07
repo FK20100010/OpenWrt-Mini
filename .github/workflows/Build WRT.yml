@@ -1,5 +1,5 @@
 name: Build WRT
-run-name: ${{ inputs.model }}
+run-name: ${{ inputs.model }}_${{ env.BUILD_DIR }}
 
 on:
   workflow_dispatch:
@@ -97,19 +97,19 @@ jobs:
       run: |
         export BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d")
         echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
-        echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > OPNAME
-        echo "OPNAME=$(cat OPNAME)" >> $GITHUB_ENV
+        echo ${{ inputs.model }} > BUILD_MODEL
+        echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > BUILD_DIR
+        echo "BUILD_DIR=$(cat BUILD_DIR)" >> $GITHUB_ENV
 
     - name: Build Firmware
       run: |
-        cat OPNAME
-        git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git ${{ env.OPNAME }}
+        git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git ${{ env.BUILD_DIR }}
         sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  additional/99-additional-settings
-        chmod 775 build.sh
-        ./build.sh
+        chmod 775 *.sh
+        ./additional.sh && ./build.sh
 
     - name: Upload Firmware
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.BUILD_DATE }}_${{ inputs.model }}_${{ env.OPNAME }}
+        name: ${{ env.BUILD_DATE }}_${{ inputs.model }}_${{ env.BUILD_DIR }}
         path: ./firmware/*.*
