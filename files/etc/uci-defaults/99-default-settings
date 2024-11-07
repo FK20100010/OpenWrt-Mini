@@ -1,7 +1,7 @@
 #!/bin/sh
 
-uci set luci.main.lang=zh_cn
-uci commit luci
+uci -q set luci.main.lang=zh_cn
+uci -q commit luci
 
 uci -q batch <<-EOF
 	set system.@system[0].timezone='CST-8'
@@ -13,28 +13,28 @@ uci -q batch <<-EOF
 	add_list system.ntp.server='ntp.ntsc.ac.cn'
 	add_list system.ntp.server='time.ustc.edu.cn'
 EOF
-uci commit system
+uci -q commit system
 
-uci set fstab.@global[0].anon_mount=1
-uci commit fstab
+uci -q set fstab.@global[0].anon_mount=1
+uci -q commit fstab
 
 #lan ip
-uci set network.lan.ipaddr=192.168.1.10
-# 提交更改
-uci commit network
+uci -q set network.lan.ipaddr=192.168.1.10
+uci -q commit network
 
 #sed -i 's/\"services\"/\"nas\"/g' /usr/lib/lua/luci/controller/xunlei.lua
-sed -i 's/services/nas/g' /usr/share/luci/menu.d/luci-app-samba4.json
+sed -i 's/services/nas/g'  /usr/share/luci/menu.d/luci-app-samba4.json
 sed -i '/passwall/d' /etc/opkg/distfeeds.conf
+sed -i '/mihomo/d' /etc/opkg/distfeeds.conf
+sed -i '/_core/d' /etc/opkg/distfeeds.conf
+sed -i '/nss_packages/d' /etc/opkg/distfeeds.conf
+sed -i '/sqm_scripts_nss/d' /etc/opkg/distfeeds.conf
+
 
 sed -i 's~root::0:0:99999:7:::~root:$5$wWuQ48EcwP8fJ2Xq$GGvJHda1R2bYVNWbsG4lGS/Yn/kUxWDDLfYac9p9PI.:20019:0:99999:7:::~g' /etc/shadow
 sed -i 's~root:::0:99999:7:::~root:$5$wWuQ48EcwP8fJ2Xq$GGvJHda1R2bYVNWbsG4lGS/Yn/kUxWDDLfYac9p9PI.:20019:0:99999:7:::~g' /etc/shadow
 
 sed -i '/check_signature/d' /etc/opkg.conf
 
-
-sed -i '/option disabled/d' /etc/config/wireless
-sed -i '/set wireless.radio${devidx}.disabled/d' /lib/wifi/mac80211.sh
-sed -i 's/boardinfo.model/boardinfo.system/g' /www/luci-static/resources/view/status/include/10_system.js
 
 exit 0
