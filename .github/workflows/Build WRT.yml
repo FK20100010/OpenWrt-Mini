@@ -1,0 +1,115 @@
+name: Build WRT
+run-name: ${{ inputs.model }}_$dd
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        required: true
+        description: 路由器型号
+        default: jdcloud_ax1800-pro
+
+      build_mod:
+        required: true
+        description: Openwrt源码
+        default: VIKINGYFY/immortalwrt
+        dd : $(echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}')
+
+      build_branch:
+        required: true
+        description: Openwrt分支
+        default: main          
+
+      lan-ip:
+        required: true
+        description: Lan.ipaddr
+        default: '192.168.10.1'
+          
+      ssh:
+        description: SSH connection to Actions
+        type: choice
+        required: false
+        default: 'false'
+        options:
+          - false
+          - true
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+#    runs-on: ${{ inputs.runs-on }}
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Free Disk Space
+      uses: endersonmenezes/free-disk-space@main
+      with:
+        remove_android: true
+        remove_dotnet: true
+        remove_haskell: true
+        remove_tool_cache: true
+        remove_swap: true
+        remove_packages: "android* azure* clang* dotnet* firefox* ghc* golang* google* libclang* libgl1* lld* llvm* \
+          microsoft* mongodb* mono* mysql* nodejs* openjdk* php* postgresql* powershell* snap* temurin* yarn* zulu*"
+        remove_packages_one_command: true
+        remove_folders: "/etc/apt/sources.list.d* /etc/mono* /etc/mysql* /usr/include/linux/android* /usr/lib/llvm* /usr/lib/mono* \
+          /usr/local/lib/android* /usr/local/lib/node_modules* /usr/local/share/chromium* /usr/local/share/powershell* \
+          /usr/local/share/vcpkg/ports/azure* /usr/local/share/vcpkg/ports/google* /usr/local/share/vcpkg/ports/libpq/android* \
+          /usr/local/share/vcpkg/ports/llvm* /usr/local/share/vcpkg/ports/mysql* /usr/local/share/vcpkg/ports/snap* \
+          /usr/share/azure* /usr/share/dotnet* /usr/share/glade* /usr/share/miniconda* /usr/share/php* /usr/share/swift \
+          /var/lib/mysql* /var/log/azure*"
+        testing: false
+
+    - name: Cache Dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache
+        key: ${{ runner.os }}-build-${{ hashFiles('**/build.sh') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+          
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        
+    - name: Initialization Environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E apt -yqq update
+        sudo -E apt -yqq full-upgrade
+        sudo -E apt -yqq autoremove --purge
+        sudo -E apt -yqq autoclean
+        sudo -E apt -yqq clean
+        sudo -E apt -yqq install dos2unix
+        sudo -E apt -yqq install libfuse-dev
+        sudo bash -c 'bash <(curl -sL https://build-scripts.immortalwrt.org/init_build_environment.sh)'
+        sudo -E systemctl daemon-reload
+        sudo -E timedatectl set-timezone "Asia/Shanghai"
+
+    - name: Initialization Values
+      run: |
+        export BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
+        echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
+
+    - name: Build Firmware
+      run: |
+		    git clone --depth 1 -b ${{ inputs.build_branch }} --single-branch https://github.com/${{ inputs.build_mod }}.git op_${{ inputs.build_branch }}
+        sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  additional/99-additional-settings
+        chmod 775 *.sh
+		    cd op_${{ inputs.build_branch }}
+		    ./additional.sh
+        ./build.sh
+
+    - name: Upload Firmware
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.BUILD_DATE }}_${{ inputs.model }}_${{ inputs.build_mod }}
+        path: ./firmware/*.*
