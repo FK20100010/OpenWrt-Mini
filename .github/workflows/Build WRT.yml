@@ -1,5 +1,5 @@
 name: Build WRT
-run-name: ${{ inputs.model }}
+run-name: ${{ inputs.model }}_${{ env.opname }}
 
 on:
   workflow_dispatch:
@@ -100,7 +100,8 @@ jobs:
 
     - name: Build Firmware
       run: |
-        echo "opname=$(echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}')" >> $GITHUB_ENV
+        echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > opname
+        [ -s opname ] && echo "opname=_$(cat opname)" >> $GITHUB_ENV
         git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git ${{ env.opname }}
         sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  patches/99-additional-settings
         chmod 775 build.sh
