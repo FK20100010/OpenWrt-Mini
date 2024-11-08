@@ -5,7 +5,7 @@ sed -i '/^#/d' feeds.conf.default
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
 echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> "feeds.conf.default"
-echo "src-git mihomo https://github.com/morytyann/OpenWrt-mihomo.git;main" >> "feeds.conf.default"
+echo "src-git mihomo https://github.com/morytyann/OpenWrt-mihomo.git;v1.10.0" >> "feeds.conf.default"
 
 ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a
 
@@ -25,7 +25,8 @@ sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.
 
 # 增固件连接数
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
-
+# 安装turboacc
 curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
+# 更新luci-app-dockerman
 rm -rf feeds/luci/applications/luci-app-dockerman
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
