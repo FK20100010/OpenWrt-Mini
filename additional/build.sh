@@ -8,10 +8,10 @@ BUILD_DIR=$(cat BUILD_DIR)
 BUILD_MODEL=$(cat BUILD_MODEL)
 CONFIG_FILE=$BASE_PATH/additional/$BUILD_MODEL.config
 
+aa=$(grep -lri $BUILD_MODEL $BASE_PATH$BUILD_DIR/target | awk -F'[/.]' '{print $3}')
+bb=$(grep -lri $BUILD_MODEL $BASE_PATH$BUILD_DIR/target | awk -F'[/.]' '{print $5}')
 if [[ ! -f "$CONFIG_FILE" ]]; then
-    aa=$(grep -lri $BUILD_MODEL $BASE_PATH$BUILD_DIR/target | awk -F'[/.]' '{print $3}')
-    bb=$(grep -lri $BUILD_MODEL $BASE_PATH$BUILD_DIR/target | awk -F'[/.]' '{print $5}')
-    cat>$BASE_PATH/$BUILD_DIR/.config<<EOF
+    cat>$BASE_PATH/$BUILD_DIR/.config<<-EOF
     CONFIG_TARGET_$aa=y
     CONFIG_TARGET_$aa_$bb=y
     CONFIG_TARGET_$aa_$bb_DEVICE_$BUILD_MODEL=y
@@ -19,6 +19,7 @@ if [[ ! -f "$CONFIG_FILE" ]]; then
     else
     \cp -f $BASE_PATH/additional/$BUILD_MODEL.config $BASE_PATH/$BUILD_DIR/.config
 fi
+cat $BASE_PATH/$BUILD_DIR/.config
 
 DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' $CONFIG_FILE | sed -r 's/.*DEVICE_(.*)=y/\1/')
 if [[ "$DEVICE_NAME" != "jdcloud_ax1800-pro" ]] || [[ "$DEVICE_NAME" != "jdcloud_re-ss-01" ]]; then
