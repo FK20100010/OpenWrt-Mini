@@ -11,11 +11,11 @@ CONFIG_FILE=$BASE_PATH/additional/$BUILD_MODEL.config
 aa=$(grep -lri $BUILD_MODEL $BASE_PATH$BUILD_DIR/target | awk -F'[/.]' '{print $3}')
 bb=$(grep -lri $BUILD_MODEL $BASE_PATH$BUILD_DIR/target | awk -F'[/.]' '{print $5}')
 if [[ ! -f "$CONFIG_FILE" ]]; then
-    cat>$BASE_PATH/$BUILD_DIR/.config<<-EOF
+    cat>$BASE_PATH/$BUILD_DIR/.config<<EOF
     CONFIG_TARGET_$aa=y
     CONFIG_TARGET_$aa_$bb=y
     CONFIG_TARGET_$aa_$bb_DEVICE_$BUILD_MODEL=y
-    EOF
+EOF
     else
     \cp -f $BASE_PATH/additional/$BUILD_MODEL.config $BASE_PATH/$BUILD_DIR/.config
 fi
