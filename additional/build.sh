@@ -15,9 +15,9 @@ echo aa=$aa bb=$bb
 cd -
 if [[ ! -f "$CONFIG_FILE" ]]; then
     cat>$BASE_PATH/$BUILD_DIR/.config<<EOF
-    CONFIG_TARGET_${aa}=y
-    CONFIG_TARGET_${aa}_${bb}=y
-    CONFIG_TARGET_${aa}_${bb}_DEVICE_${BUILD_MODEL}=y
+CONFIG_TARGET_${aa}=y
+CONFIG_TARGET_${aa}_${bb}=y
+CONFIG_TARGET_${aa}_${bb}_DEVICE_${BUILD_MODEL}=y
 EOF
     else
     \cp -f $BASE_PATH/additional/$BUILD_MODEL.config $BASE_PATH/$BUILD_DIR/.config
