@@ -8,8 +8,10 @@ BUILD_DIR=$(cat BUILD_DIR)
 BUILD_MODEL=$(cat BUILD_MODEL)
 CONFIG_FILE=$BASE_PATH/additional/$BUILD_MODEL.config
 
-aa=$(grep -lri $BUILD_MODEL $BASE_PATH/$BUILD_DIR/target | awk -F'[/.]' '{print $3}')
-bb=$(grep -lri $BUILD_MODEL $BASE_PATH/$BUILD_DIR/target | awk -F'[/.]' '{print $5}')
+cd $BASE_PATH/$BUILD_DIR
+aa=$(grep -lri $BUILD_MODEL target | awk -F'[/.]' '{print $3}')
+bb=$(grep -lri $BUILD_MODEL target | awk -F'[/.]' '{print $5}')
+cd -
 if [[ ! -f "$CONFIG_FILE" ]]; then
     cat>$BASE_PATH/$BUILD_DIR/.config<<EOF
     CONFIG_TARGET_$aa=y
