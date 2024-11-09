@@ -8,8 +8,8 @@ BUILD_DIR=$(cat BUILD_DIR)
 BUILD_MODEL=$(cat BUILD_MODEL)
 CONFIG_FILE=$BASE_PATH/additional/$BUILD_MODEL.config
 
-aa=$(grep -lri $BUILD_MODEL $BASE_PATH$BUILD_DIR/target | awk -F'[/.]' '{print $3}')
-bb=$(grep -lri $BUILD_MODEL $BASE_PATH$BUILD_DIR/target | awk -F'[/.]' '{print $5}')
+aa=$(grep -lri $BUILD_MODEL $BASE_PATH/$BUILD_DIR/target | awk -F'[/.]' '{print $3}')
+bb=$(grep -lri $BUILD_MODEL $BASE_PATH/$BUILD_DIR/target | awk -F'[/.]' '{print $5}')
 if [[ ! -f "$CONFIG_FILE" ]]; then
     cat>$BASE_PATH/$BUILD_DIR/.config<<EOF
     CONFIG_TARGET_$aa=y
@@ -21,7 +21,7 @@ EOF
 fi
 cat $BASE_PATH/$BUILD_DIR/.config
 
-DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' $CONFIG_FILE | sed -r 's/.*DEVICE_(.*)=y/\1/')
+DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' $BASE_PATH/$BUILD_DIR/.config | sed -r 's/.*DEVICE_(.*)=y/\1/')
 if [[ "$DEVICE_NAME" != "jdcloud_ax1800-pro" ]] || [[ "$DEVICE_NAME" != "jdcloud_re-ss-01" ]]; then
     sed -i "s/FK20100010/$DEVICE_NAME/g" $BASE_PATH/additional/99-additional-settings
     sed -i '/.encryption=/d' $BASE_PATH/additional/99-additional-settings
@@ -38,7 +38,6 @@ if [[ -d $TARGET_DIR ]]; then
 fi
 
 cd $BASE_PATH/$BUILD_DIR
-cd $(dirname $0) && pwd
 make defconfig
 make download -j$(nproc)
 make -j$(nproc) || make -j1 || make -j1 V=s
