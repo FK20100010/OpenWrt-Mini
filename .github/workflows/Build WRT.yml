@@ -70,14 +70,7 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles('**/build.sh') }}
         restore-keys: |
           ${{ runner.os }}-build-
-          
-    - name: SSH connection to Actions
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        
+               
     - name: Initialization Environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -101,6 +94,13 @@ jobs:
         echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > BUILD_DIR
         echo "BUILD_DIR=$(cat BUILD_DIR)" >> $GITHUB_ENV
 
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        
     - name: Build Firmware
       run: |
         git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git ${{ env.BUILD_DIR }}
