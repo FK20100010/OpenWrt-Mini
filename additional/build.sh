@@ -11,16 +11,18 @@ CONFIG_FILE=$BASE_PATH/additional/$BUILD_MODEL.config
 cd $BASE_PATH/$BUILD_DIR
 aa=$(grep -lri $BUILD_MODEL target | awk -F'[/.]' '{print $3}')
 bb=$(grep -lri $BUILD_MODEL target | awk -F'[/.]' '{print $5}')
+echo aa=$aa bb=$bb
 cd -
 if [[ ! -f "$CONFIG_FILE" ]]; then
     cat>$BASE_PATH/$BUILD_DIR/.config<<EOF
-    CONFIG_TARGET_$aa=y
-    CONFIG_TARGET_$aa_$bb=y
-    CONFIG_TARGET_$aa_$bb_DEVICE_$BUILD_MODEL=y
+    CONFIG_TARGET_${aa}=y
+    CONFIG_TARGET_${aa}_${bb}=y
+    CONFIG_TARGET_${aa}_${bb}_DEVICE_${BUILD_MODEL}=y
 EOF
     else
     \cp -f $BASE_PATH/additional/$BUILD_MODEL.config $BASE_PATH/$BUILD_DIR/.config
 fi
+ls -l $BASE_PATH/$BUILD_DIR/.config
 cat $BASE_PATH/$BUILD_DIR/.config
 
 DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' $BASE_PATH/$BUILD_DIR/.config | sed -r 's/.*DEVICE_(.*)=y/\1/')
