@@ -27,13 +27,13 @@ cat $BASE_PATH/$BUILD_DIR/.config
 
 DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' $BASE_PATH/$BUILD_DIR/.config | sed -r 's/.*DEVICE_(.*)=y/\1/')
 if [[ "$DEVICE_NAME" != "jdcloud_ax1800-pro" ]] || [[ "$DEVICE_NAME" != "jdcloud_re-ss-01" ]]; then
-    sed -i "s/FK20100010/$DEVICE_NAME/g" $BASE_PATH/additional/99-additional-settings
-    sed -i '/.encryption=/d' $BASE_PATH/additional/99-additional-settings
-    sed -i '/.key=/d' $BASE_PATH/additional/99-additional-settings
-    sed -i '/_core/d' $BASE_PATH/additional/99-additional-settings
-    sed -i '/\/etc\/shadow/d' $BASE_PATH/additional/99-additional-settings
-    chmod 775 $BASE_PATH/additional/99-additional-settings
-    cp -f $BASE_PATH/additional/99-additional-settings $BASE_PATH/$BUILD_DIR/package/base-files/files/etc/uci-defaults
+    sed -i "s/FK20100010/$DEVICE_NAME/g" $BASE_PATH/additional/999-additional-settings
+    sed -i '/.encryption=/d' $BASE_PATH/additional/999-additional-settings
+    sed -i '/.key=/d' $BASE_PATH/additional/999-additional-settings
+    sed -i '/_core/d' $BASE_PATH/additional/999-additional-settings
+    sed -i '/\/etc\/shadow/d' $BASE_PATH/additional/999-additional-settings
+    chmod 775 $BASE_PATH/additional/999-additional-settings
+    cp -f $BASE_PATH/additional/999-additional-settings $BASE_PATH/$BUILD_DIR/package/base-files/files/etc/uci-defaults
 fi
 
 TARGET_DIR="$BASE_PATH/$BUILD_DIR/bin/targets"
