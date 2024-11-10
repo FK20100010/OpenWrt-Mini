@@ -26,7 +26,7 @@ ls -l $BASE_PATH/$BUILD_DIR/.config
 cat $BASE_PATH/$BUILD_DIR/.config
 
 DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' $BASE_PATH/$BUILD_DIR/.config | sed -r 's/.*DEVICE_(.*)=y/\1/')
-if [[ "$DEVICE_NAME" != "jdcloud_ax1800-pro" ]] || [[ "$DEVICE_NAME" != "jdcloud_re-ss-01" ]]; then
+if [[ "$DEVICE_NAME" != "jdcloud_ax1800-pro" ]] && [[ "$DEVICE_NAME" != "jdcloud_re-ss-01" ]]; then
     sed -i "s/FK20100010/$DEVICE_NAME/g" $BASE_PATH/additional/999-additional-settings
     sed -i '/.encryption=/d' $BASE_PATH/additional/999-additional-settings
     sed -i '/.key=/d' $BASE_PATH/additional/999-additional-settings
