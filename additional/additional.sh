@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-cd $(cat BUILD_DIR)
+BUILD_DIR=$(cat BUILD_DIR)
+BUILD_MODEL=$(cat BUILD_MODEL)
+if [[ -f "additional/$BUILD_MODEL.sh" ]]; then
+    chmod 755 $BUILD_MODEL.sh
+    additional/$BUILD_MODEL.sh
+fi
+
+cd 
 sed -i '/^#/d' feeds.conf.default
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
