@@ -1,0 +1,4 @@
+cd $(cat BUILD_DIR)
+sed -i '/^#/d' feeds.conf.default
+sed -i '/luci/d' feeds.conf.default
+sed -i '1s#^#src-git luci https://github.com/coolsnowwolf/luci\n#' feeds.conf.default
