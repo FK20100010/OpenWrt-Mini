@@ -2,9 +2,9 @@
 
 BUILD_DIR=$(cat BUILD_DIR)
 BUILD_MODEL=$(cat BUILD_MODEL)
+echo $0
 if [[ -f "${BUILD_MODEL}_${BUILD_DIR}" ]]; then
-    chmod 755 ${BUILD_MODEL}_${BUILD_DIR}
-    ${BUILD_MODEL}_${BUILD_DIR}
+   bash ${BUILD_MODEL}_${BUILD_DIR}
 fi
 
 cd $BUILD_DIR
