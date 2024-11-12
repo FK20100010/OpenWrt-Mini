@@ -92,7 +92,7 @@ jobs:
         echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
         echo ${{ inputs.model }} > additional/BUILD_MODEL
         echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > additional/BUILD_DIR
-        echo "BUILD_DIR=$(cat BUILD_DIR)" >> $GITHUB_ENV
+        echo "BUILD_DIR=$(cat additional/BUILD_DIR)" >> $GITHUB_ENV
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
