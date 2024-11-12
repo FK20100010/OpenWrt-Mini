@@ -90,8 +90,8 @@ jobs:
       run: |
         export BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d")
         echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
-        echo ${{ inputs.model }} > BUILD_MODEL
-        echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > BUILD_DIR
+        echo ${{ inputs.model }} > additional/BUILD_MODEL
+        echo ${{ inputs.build_mod }} | awk -F'/' '{print $2}' > additional/BUILD_DIR
         echo "BUILD_DIR=$(cat BUILD_DIR)" >> $GITHUB_ENV
 
     - name: SSH connection to Actions
