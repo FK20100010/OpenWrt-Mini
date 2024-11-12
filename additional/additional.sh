@@ -2,9 +2,9 @@
 
 BUILD_DIR=$(cat BUILD_DIR)
 BUILD_MODEL=$(cat BUILD_MODEL)
-if [[ -f "additional/$BUILD_MODEL.sh" ]]; then
-    chmod 755 additional/$BUILD_MODEL.sh
-    additional/$BUILD_MODEL.sh
+if [[ -f "additional/${BUILD_MODEL}_${BUILD_DIR}" ]]; then
+    chmod 755 additional/${BUILD_MODEL}_${BUILD_DIR}
+    additional/${BUILD_MODEL}_${BUILD_DIR}
 fi
 
 cd $BUILD_DIR
