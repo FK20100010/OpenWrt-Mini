@@ -103,9 +103,10 @@ jobs:
         
     - name: Build Firmware
       run: |
+        ls | grep -v additional | xargs rm -rf && mv additional/* ./ && rm -rf additional
         git clone --depth 1 -b ${{ inputs.build_branch }} https://github.com/${{ inputs.build_mod }}.git ${{ env.BUILD_DIR }}
-        sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  additional/999-additional-settings
-        cp -f additional/*.sh ./ && chmod 775 *.sh
+        sed -i "s/192.168.10.1/${{ inputs.lan-ip }}/g"  999-additional-settings
+        chmod 775 *.sh
         ./additional.sh && ./build.sh
 
     - name: Upload Firmware
