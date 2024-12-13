@@ -40,3 +40,4 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 git clone https://github.com/coolsnowwolf/lede
 rm -rf feeds/nss_packages/
 cp -rf lede/package/qca feeds/nss_packages
+rm -rf ../jdcloud_re-ss-01.config
