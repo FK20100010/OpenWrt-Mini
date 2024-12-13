@@ -37,7 +37,4 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 # 更新luci-app-dockerman
 #rm -rf feeds/luci/applications/luci-app-dockerman
 #git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
-git clone https://github.com/coolsnowwolf/lede
-rm -rf feeds/nss_packages/
-cp -rf lede/package/qca feeds/nss_packages
 rm -rf ../jdcloud_re-ss-01.config
