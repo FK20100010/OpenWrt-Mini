@@ -1720,14 +1720,3 @@ dj舞曲英雄泪,https://vd3.bdstatic.com/mda-mkt45tnypacz3smk/sc/cae_h264/1638
 音乐之声,http://ngcdn003.cnr.cn/live/yyzs/index.m3u8
 鸳鸯DJ劲爆DJ,https://vd3.bdstatic.com/mda-nba9z1mqi949jyyb/sc/cae_h264_delogo/1644629210546304303/mda-nba9z1mqi949jyyb.mp4
 
-
-戏曲频道,#genre#
-公视戏剧,http://104.244.79.187:4994/proxy?url=http%3A//104.244.79.187%3A5050/litv/4gtv-4gtv042
-龙华戏剧,http://104.244.79.187:4994/proxy?url=http%3A//104.244.79.187%3A5050/litv/litv-longturn18
-三立戏剧,http://61.221.215.25:8800/hls/41/index.m3u8
-岭南戏剧,http://219.159.194.244:8181/tsfile/live/1006_1.m3u8
-岭南戏剧,http://222.218.158.141:8181/tsfile/live/1006_1.m3u8
-戏曲精选,http://wouu.net:9977/udp/239.93.0.144:5140
-梨园频道,http://60.7.56.33:4000/udp/239.253.93.133:6441
-梨园频道,http://60.2.190.206:4000/udp/239.253.92.152:8086
-梨园频道,http://60.2.190.206:4000/udp/239.253.93.133:6441
