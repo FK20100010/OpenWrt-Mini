@@ -9,6 +9,19 @@
 #EXTINF:-1,tvg-id="广东体育" tvg-name="广东体育" tvg-logo="https://epg.v1.mk/logo/广东体育.png" group-title="Judy「自用」",广东体育
 https://iptv.vip-tptv.xyz/cao.php?id=mediacorp6
 
+#EXTINF:-1,tvg-logo="https://macaujc.com/img/macaujc.png" group-title="Judy「自用」",新澳门
+https://live-macaujc.com/live/livestream/new.m3u8
+
+#EXTINF:-1,tvg-logo="https://macaujc.com/img/macaujc.png" group-title="Judy「自用」",新澳门
+https://live-macaujc.com/live/livestream/new.flv
+
+#EXTINF:-1,tvg-logo="https://macaujc.com/img/macaujc.png" group-title="Judy「自用」",澳门
+https://live-macaujc.com/live/livestream/macaujc2230.m3u8
+
+#EXTINF:-1,tvg-logo="https://macaujc.com/img/macaujc.png" group-title="Judy「自用」",澳门
+https://live-macaujc.com/live/livestream/macaujc2230.flv
+
+
 #EXTINF:-1,tvg-id="TVB星河" tvg-name="TVB星河" tvg-logo="https://epg.v1.mk/logo/TVB星河.png" group-title="Judy「自用」",TVB星河台
 https://iptv.vip-tptv.xyz/cao.php?id=tvb-xinghe
 
