@@ -1,3 +1,9 @@
 https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb
 https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb
 https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb
+
+
+https://www.mytvsuper.com.mp/m3u/Live.m3u
+https://cdn.jsdelivr.net/gh/YanG-1989/m3u@main/Gather.m3u
+https://tv.iill.top/m3u/Gather
+https://tv.iill.top/m3u/Gather#headers#{"User-Agent":"okhttp"}
