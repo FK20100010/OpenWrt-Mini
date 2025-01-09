@@ -6,4 +6,13 @@ https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/downlo
 https://www.mytvsuper.com.mp/m3u/Live.m3u
 https://cdn.jsdelivr.net/gh/YanG-1989/m3u@main/Gather.m3u
 https://tv.iill.top/m3u/Gather
-https://tv.iill.top/m3u/Gather#headers#{"User-Agent":"okhttp"}
+1,https://tv.iill.top/m3u/Gather#headers#{"User-Agent":"okhttp"}
+[原始]
+https://raw.githubusercontent.com/big-mouth-cn/tv/main/iptv-ok.m3u
+[国内访问] 
+https://gh-proxy.com/https://raw.githubusercontent.com/big-mouth-cn/tv/main/iptv-ok.m3u
+
+1,https://tv.iill.top/m3u/Gather#headers#{"User-Agent":"okhttp"}
+2,https://cdn.jsdelivr.net/gh/FK20100010/OpenWrt-Mini@main/feiyang.m3u
+3,https://raw.githubusercontent.com/big-mouth-cn/tv/main/iptv-ok.m3u
+4,https://cdn.jsdelivr.net/gh/Guovin/iptv-api@gd/output/result.m3u
